@@ -1,0 +1,31 @@
+type: object
+properties:
+  status:
+    type: string
+    example: success
+  code:
+    type: integer
+    example: 200
+  data:
+    type: object
+    properties:
+      currency_from:
+        type: string
+        example: USD
+        description: Currency code converted from
+      currency_to:
+        type: string
+        example: EUR
+        description: Currency code converted to
+      value:
+        type: float
+        example: 0.9
+        description: Value to convert
+      converted_value:
+        type: float
+        example: 0.9
+        description: Converted value
+      rate:
+        type: float
+        example: 0.9
+        description: Exchange rate used

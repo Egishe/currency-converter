@@ -1,0 +1,136 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: "currency converter"
+servers:
+  - url: http://127.0.0.1:8080/api
+    description: Local
+paths:
+  /currency/rates:
+    get:
+      summary: Get currency rates
+      operationId: currency-rates
+      tags: [ "currency" ]
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/CurrencyRates.yaml'
+        '500':
+          $ref: '#/components/responses/500ServerError'
+  /currency/convert:
+    post:
+        summary: Convert currency
+        operationId: currency-convert
+        tags: [ "currency" ]
+        requestBody:
+            description: Request body
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: './schemas/CurrencyConvertRequest.yaml'
+        responses:
+            '200':
+              description: Successful operation
+              content:
+                application/json:
+                  schema:
+                    $ref: './schemas/CurrencyConvertResponse.yaml'
+            '500':
+              $ref: '#/components/responses/500ServerError'
+  /tech/health:
+    get:
+      summary: Get service health status
+      operationId: tech-health
+      security: []
+      tags: [ "tech" ]
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/HealthStatus.yaml'
+        '500':
+          $ref: '#/components/responses/500ServerError'
+  /tech/guarded-health:
+    get:
+      summary: Get auth-guarded demo endpoint
+      operationId: tech-guarded-health
+      tags: [ "tech" ]
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/HealthStatus.yaml'
+        '401':
+          $ref: '#/components/responses/401NeedAuthError'
+        '500':
+          $ref: '#/components/responses/500ServerError'
+components:
+  schemas:
+    ServerError:
+      $ref: "./schemas/ServerError.yaml"
+    RequestValidationError:
+      $ref: "./schemas/RequestValidationError.yaml"
+    ExternalServiceRequestError:
+      $ref: "./schemas/ExternalServiceRequestError.yaml"
+  responses:
+    404NotFoundError:
+      description: Requested resource not found.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: './schemas/ServerError.yaml'
+              - properties:
+                  errorMessage:
+                    type: string
+                    example: "Customer not found"
+                  errorClass:
+                    type: string
+                    example: "\\Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException"
+    401NeedAuthError:
+      description: Authentication header is not provided or incorrect
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ServerError'
+              - properties:
+                  errorMessage:
+                    example: "Authentication Required"
+                  errorClass:
+                    example: "\\Illuminate\\Auth\\AuthenticationException"
+    422ValidationError:
+      description: |
+        Default laravel validation error
+        https://laravel.com/docs/10.x/validation#validation-error-response-format
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RequestValidationError'
+    500ServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServerError'
+    502ExternalServiceRequestError:
+      description: External service unable to process request. For example, scrotis responded with bad request or 500 error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ExternalServiceRequestError'
+  securitySchemes:
+    ApiKeyAuth:
+      type: http
+      scheme: bearer
+      description: All requests should contain Authorization header with Bearer format, example of token "ladmin.XCDQ5ERT3NFST2IF"
+security:
+  - ApiKeyAuth: []

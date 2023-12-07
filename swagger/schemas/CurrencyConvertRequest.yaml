@@ -1,0 +1,21 @@
+type: object
+required:
+  - from
+  - to
+  - amount
+properties:
+  from:
+    type: string
+    required: true
+    description: Convert from this currency
+    example: USD
+  to:
+    type: string
+    required: true
+    description: Convert to this currency
+    example: BTC
+  amount:
+    type: float
+    required: true
+    description: Amount to convert
+    example: 1.0

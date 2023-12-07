@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  php:
+    build:
+      context: ./docker/php
+      args:
+        IMAGE_PHP: php:8.2-fpm-buster
+    volumes:
+      - ./:/app
+    working_dir: /app
+    networks:
+      default:
+      currencyConverter:
+        aliases:
+          - service-php
+
+  nginx:
+    image: nginx:1.19.0-alpine
+    volumes:
+      - ./public:/app/public:ro
+      - ./docker/nginx/templates:/etc/nginx/templates:ro
+    networks:
+      default:
+      currencyConverter:
+        aliases:
+          - currency-converter.local
+    depends_on:
+      - php
+      - swagger
+    ports:
+      - "8080:80"
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    environment:
+      BASE_URL: /docs
+      URLS: "[ { name: \"HTTP API\", url: \"/docs/docs/api.openapi.yaml\"} ]"
+    volumes:
+      - ./swagger:/usr/share/nginx/html/docs
+
+networks:
+  currencyConverter:
+    external: true

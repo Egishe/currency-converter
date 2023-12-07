@@ -1,0 +1,13 @@
+type: object
+required:
+  - data
+properties:
+  data:
+    type: object
+    required:
+      - status
+    properties:
+      status:
+        type: boolean
+        example: true
+        description: true if the service is healthy

@@ -1,0 +1,11 @@
+type: object
+properties:
+  status:
+    type: string
+    example: success
+  code:
+    type: integer
+    example: 200
+  data:
+    type: array
+    example: [USD: 44000.0, EUR: 50000.0]
