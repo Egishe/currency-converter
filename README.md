@@ -1,8 +1,8 @@
-# test_app_mel
+# Currency converter
 
 Description
 
-- swagger: http://127.0.0.1:3928080/docs/ ([api.openapi.yaml](/swagger/api.openapi.yaml))
+- swagger: http://127.0.0.1:8080/docs/ ([api.openapi.yaml](/swagger/api.openapi.yaml))
 
 ## Requirements for host
 
@@ -15,11 +15,6 @@ Description
 Run `make up` to prepare and run service.
 
 Run `make test` to run tests.
-
-Other useful commands:
-* make lint
-* make lint-fix
-* make st
 
 ### Swagger UI
 
