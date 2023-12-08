@@ -8,7 +8,6 @@ Description
 
 * docker
 * make
-* php 8.2
 
 ## Service usage
 
