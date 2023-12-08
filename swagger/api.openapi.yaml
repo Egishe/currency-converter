@@ -101,6 +101,6 @@ components:
     ApiKeyAuth:
       type: http
       scheme: bearer
-      description: All requests should contain Authorization header with Bearer format, example of token "ladmin.XCDQ5ERT3NFST2IF"
+      description: All requests should contain Authorization header with Bearer format, example of token "XCDQ5ERT3NFST2IF"
 security:
   - ApiKeyAuth: []
