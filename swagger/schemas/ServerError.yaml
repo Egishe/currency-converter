@@ -1,12 +1,11 @@
 type: object
-required:
-  - traceId
-  - errorMessage
-  - errorClass
 properties:
-  errorMessage:
+  status:
+    type: string
+    example: error
+  code:
+    type: integer
+    example: 500
+  message:
     type: string
     example: "Something went wrong"
-  errorClass:
-    type: string
-    example: "\\Exception"

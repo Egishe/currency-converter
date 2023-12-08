@@ -76,25 +76,7 @@ components:
   schemas:
     ServerError:
       $ref: "./schemas/ServerError.yaml"
-    RequestValidationError:
-      $ref: "./schemas/RequestValidationError.yaml"
-    ExternalServiceRequestError:
-      $ref: "./schemas/ExternalServiceRequestError.yaml"
   responses:
-    404NotFoundError:
-      description: Requested resource not found.
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: './schemas/ServerError.yaml'
-              - properties:
-                  errorMessage:
-                    type: string
-                    example: "Customer not found"
-                  errorClass:
-                    type: string
-                    example: "\\Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException"
     401NeedAuthError:
       description: Authentication header is not provided or incorrect
       content:
@@ -103,30 +85,18 @@ components:
             allOf:
               - $ref: '#/components/schemas/ServerError'
               - properties:
-                  errorMessage:
+                  status:
+                    example: error
+                  code:
+                    example: 401
+                  message:
                     example: "Authentication Required"
-                  errorClass:
-                    example: "\\Illuminate\\Auth\\AuthenticationException"
-    422ValidationError:
-      description: |
-        Default laravel validation error
-        https://laravel.com/docs/10.x/validation#validation-error-response-format
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RequestValidationError'
     500ServerError:
       description: Internal server error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ServerError'
-    502ExternalServiceRequestError:
-      description: External service unable to process request. For example, scrotis responded with bad request or 500 error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ExternalServiceRequestError'
   securitySchemes:
     ApiKeyAuth:
       type: http

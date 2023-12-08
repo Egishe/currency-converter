@@ -20,7 +20,7 @@ Run `make test` to run tests.
 
 API documentation can be placed in ./swagger/api.openapi.yaml.
 Url for Swagger UI: `/docs/` prefixed with host and port of nginx container,
-i.e.: http://127.0.0.1:39280/docs/
+i.e.: http://127.0.0.1:8080/docs/
 
 ### API auth with fixed tokens
 
