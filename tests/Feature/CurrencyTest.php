@@ -109,6 +109,3 @@ class CurrencyTest extends TestCase
         ];
     }
 }
-
-//0.025
-//0.02
