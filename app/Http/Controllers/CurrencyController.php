@@ -7,9 +7,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CurrencyConvertRequest;
 use App\Http\Resources\CurrencyConversionResource;
 use App\Http\Resources\CurrencyRatesResource;
-use App\Http\Resources\TechHealthResource;
 use App\Services\Currency\CurrencyRateInterface;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Routing\Controller as BaseController;
 
 class CurrencyController extends BaseController
