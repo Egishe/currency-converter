@@ -17,7 +17,6 @@ class AppServiceProvider extends ServiceProvider
     {
         // todo: add a config option to switch between the different implementations
         $this->app->bind(CommissionInterface::class, function () {
-//            dd(config('services.commission.internal.percent'));
             return new InternalCommission(config('services.commission.internal.percent', 0.02));
         });
 

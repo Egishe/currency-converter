@@ -30,21 +30,20 @@ class BlockchainTicker implements CurrencyRateInterface
         return $result;
     }
 
-    public function rate(string $currency, bool $forceUpdate = true): float
+    public function rate(string $currency, bool $forceUpdate = true): string
     {
         if (mb_strtoupper($currency) === $this->mainCurrency) {
-            return 1.0;
+            return '1.00';
         }
 
         if ($forceUpdate || empty($this->uploadedRates)) {
-            return $this->loadRates()[$currency] ?? 0.0;
+            return (string)$this->loadRates()[$currency] ?? '0.00';
         }
 
-        return $this->uploadedRates[$currency] ?? 0.0;
+        return (string)$this->uploadedRates[$currency] ?? '0.00';
     }
 
-    // todo: use bcmath
-    public function convert(string $from, string $to, float $amount): ConversionInfo
+    public function convert(string $from, string $to, string $amount): ConversionInfo
     {
         $conversionInfo = new ConversionInfo();
         $conversionInfo->commissionPercent = 0.0;
@@ -54,7 +53,7 @@ class BlockchainTicker implements CurrencyRateInterface
         $conversionInfo->amount = $amount;
 
         $rateFrom = $this->rate($from);
-        if ($rateFrom === 0.0) {
+        if ($rateFrom === '0.00') {
             throw new \Exception("Could not get rate for currency $from");
         }
         $rateTo = $this->rate($to, false);
@@ -65,23 +64,23 @@ class BlockchainTicker implements CurrencyRateInterface
         // todo: probably this is the common case. If we have other providers
         // try to optimize this moving to the abstract class
         if (mb_strtoupper($to) === $this->mainCurrency) {
-            $rateFrom += $this->commission?->calculate($rateFrom);
-            $conversionInfo->rate = round(1 / $rateFrom, 10);
-            $amount /= $rateFrom;
+            $rateFrom = bcadd($rateFrom, $this->commission?->calculate($rateFrom, 10));
+            $conversionInfo->rate = bcdiv('1',  $rateFrom, 10);
+            $amount = bcdiv($amount, $rateFrom, 10);
             $conversionInfo->accuracy = 10;
         } elseif (mb_strtoupper($from) === $this->mainCurrency) {
-            $rateTo -= $this->commission?->calculate($rateTo);
+            $rateTo = bcsub($rateTo, $this->commission?->calculate($rateTo), 2);
             $conversionInfo->rate = $rateTo;
-            $amount *= $rateTo;
+            $amount = bcmul($amount, $rateTo);
         } else {
             // todo: should we take double commission? Now we take only one
-            $doubleConversionRate = round($rateFrom/$rateTo, 2);
-            $doubleConversionRate -= $this->commission?->calculate($doubleConversionRate);
-            $amount *= $doubleConversionRate;
+            $doubleConversionRate = bcdiv($rateFrom, $rateTo, 2);
+            $doubleConversionRate = bcsub($doubleConversionRate, $this->commission?->calculate($doubleConversionRate), 2);
+            $amount = bcmul($amount, $doubleConversionRate);
             $conversionInfo->rate = $doubleConversionRate;
         }
 
-        $conversionInfo->convertedAmount = round($amount, $conversionInfo->accuracy);
+        $conversionInfo->convertedAmount = $amount;
 
         return $conversionInfo;
     }

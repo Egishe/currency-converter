@@ -1,4 +1,4 @@
-ARG IMAGE_PHP="php:8.2-fpm-buster"
+ARG IMAGE_PHP="php:8.2-fpm"
 FROM ${IMAGE_PHP}
 
 
@@ -8,3 +8,5 @@ COPY --from=composer:2.4.2 /usr/bin/composer /usr/bin/composer
 RUN mkdir -p -m 0777 ${COMPOSER_CACHE_DIR}
 VOLUME ${COMPOSER_CACHE_DIR}
 ENV COMPOSER_CACHE_DIR=${COMPOSER_CACHE_DIR}
+
+RUN docker-php-ext-install bcmath

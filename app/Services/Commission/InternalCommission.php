@@ -13,8 +13,8 @@ class InternalCommission implements CommissionInterface
         return $this->percent;
     }
 
-    public function calculate(float $amount): float
+    public function calculate(string $amount, int $accuracy = 2): string
     {
-        return $amount * $this->percent;
+        return bcmul($amount, $this->percent, $accuracy);
     }
 }

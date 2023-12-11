@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  * @property-read string $from
  * @property-read string $to
- * @property-read float $amount
+ * @property-read string $amount
  */
 class CurrencyConvertRequest extends FormRequest
 {

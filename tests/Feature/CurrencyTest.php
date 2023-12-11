@@ -16,7 +16,7 @@ class CurrencyTest extends TestCase
     public function testBlockchainConvert(
         string $from,
         string $to,
-        float $amount,
+        string $amount,
         array $expectedData,
         ?float $commission
     ): void
@@ -59,12 +59,12 @@ class CurrencyTest extends TestCase
             'blockchainConvertDataset1' => [
                 'from' => 'USD',
                 'to' => 'AUD',
-                'amount' => 3000.94,
+                'amount' => '3000.94',
                 'expectedData' => [
                     'currency_from' => 'USD',
                     'currency_to' => 'AUD',
-                    'value' => 3000.94,
-                    'converted_value' => '1872.59',
+                    'value' => '3000.94',
+                    'converted_value' => '1860.00',
                     'rate' => '0.62',
                 ],
                 'commission' => 0.2,
@@ -72,12 +72,12 @@ class CurrencyTest extends TestCase
             'blockchainConvertDataset2' => [
                 'from' => 'USD',
                 'to' => 'BTC',
-                'amount' => 3000.94,
+                'amount' => '3000.94',
                 'expectedData' => [
                     'currency_from' => 'USD',
                     'currency_to' => 'BTC',
-                    'value' => 3000.94,
-                    'converted_value' => '0.0668553196',
+                    'value' => '3000.94',
+                    'converted_value' => '0.0668554369',
                     'rate' => '0.0000222781',
                 ],
                 'commission' => null,
@@ -85,13 +85,13 @@ class CurrencyTest extends TestCase
             'blockchainConvertDataset3' => [
                 'from' => 'BTC',
                 'to' => 'USD',
-                'amount' => 0.1023,
+                'amount' => '0.1023',
                 'expectedData' => [
                     'currency_from' => 'BTC',
                     'currency_to' => 'USD',
-                    'value' => 0.1023,
-                    'converted_value' => '4411.87',
-                    'rate' => '43126.80',
+                    'value' => '0.1023',
+                    'converted_value' => '4411.00',
+                    'rate' => '43126.81',
                 ],
                 'commission' => null,
             ],
