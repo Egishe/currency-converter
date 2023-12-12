@@ -40,9 +40,9 @@ class CurrencyTest extends TestCase
             ->give(fn() => $httpClientMock);
 
         $response = $this->jsonWithAuth('post', '/api/currency/convert', [
-            'from' => $from,
-            'to' => $to,
-            'amount' => $amount,
+            'currency_from' => $from,
+            'currency_to' => $to,
+            'value' => $amount,
         ]);
 
         $response->assertStatus(200);
