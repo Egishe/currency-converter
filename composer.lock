@@ -4,8 +4,74 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c491b8531eec05ba41a11d9276a5749",
+    "content-hash": "ba3e9592f54dc2c8a12054d229e90f9e",
     "packages": [
+        {
+            "name": "avto-dev/json-rpc-laravel",
+            "version": "v2.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/avto-dev/json-rpc-laravel.git",
+                "reference": "b40dbaf3d4cfbc9cec833f0e67b52b594982649d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/avto-dev/json-rpc-laravel/zipball/b40dbaf3d4cfbc9cec833f0e67b52b594982649d",
+                "reference": "b40dbaf3d4cfbc9cec833f0e67b52b594982649d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/contracts": "~9.0 || ~10.0",
+                "illuminate/http": "~9.0 || ~10.0",
+                "illuminate/routing": "~9.0 || ~10.0",
+                "illuminate/support": "~9.0 || ~10.0",
+                "php": "^8.0.2"
+            },
+            "require-dev": {
+                "laravel/laravel": "~9.1 || ~10.0",
+                "mockery/mockery": "^1.6",
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^9.6 || ^10.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "AvtoDev\\JsonRpc\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "RpcRouter": "AvtoDev\\JsonRpc\\RpcRouter"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AvtoDev\\JsonRpc\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Avto Develop",
+                    "homepage": "https://github.com/avto-dev"
+                }
+            ],
+            "description": "Json Rpc package",
+            "keywords": [
+                "json",
+                "laravel",
+                "rpc"
+            ],
+            "support": {
+                "issues": "https://github.com/avto-dev/json-rpc-laravel/issues",
+                "source": "https://github.com/avto-dev/json-rpc-laravel"
+            },
+            "time": "2023-11-08T11:31:06+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.11.0",
@@ -8155,7 +8221,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1"
+        "php": "^8.1",
+        "ext-bcmath": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"

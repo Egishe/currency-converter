@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Services\Commission\CommissionInterface;
 use App\Services\Commission\InternalCommission;
 use App\Services\Currency\CurrencyRateInterface;
+use AvtoDev\JsonRpc\Factories\FactoryInterface;
 use GuzzleHttp\ClientInterface;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,6 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(FactoryInterface::class, function () {
+            return new \App\Factories\RpcRequestFactory();
+        });
         // todo: add a config option to switch between the different implementations
         $this->app->bind(CommissionInterface::class, function () {
             return new InternalCommission(config('services.commission.internal.percent', 0.02));
