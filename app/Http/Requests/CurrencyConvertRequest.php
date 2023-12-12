@@ -7,9 +7,9 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * @property-read string $from
- * @property-read string $to
- * @property-read string $amount
+ * @property-read string $currency_from
+ * @property-read string $currency_to
+ * @property-read string $value
  */
 class CurrencyConvertRequest extends FormRequest
 {
@@ -21,9 +21,9 @@ class CurrencyConvertRequest extends FormRequest
     public function rules()
     {
         return [
-            'from' => 'required|string',
-            'to' => 'required|string',
-            'amount' => 'required|numeric|min:0.1',
+            'currency_from' => 'required|string',
+            'currency_to' => 'required|string',
+            'value' => 'required|numeric|min:0.01',
         ];
     }
 }

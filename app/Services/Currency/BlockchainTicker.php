@@ -19,12 +19,10 @@ class BlockchainTicker implements CurrencyRateInterface
     {
         $result = [];
         foreach ($this->loadRates() as $currency => $rate) {
-            $result[$currency] = $rate - $this->commission?->calculate($rate);
-            $result[$currency] = round($result[$currency], 2);
+            $rate = (string)$rate;
+            $result[$currency] = bcsub($rate, $this->commission?->calculate($rate), 2);
         }
-        uksort($result, function ($a, $b) {
-            return $b <=> $a;
-        });
+        asort($result);
         $this->uploadedRates = $result;
 
         return $result;

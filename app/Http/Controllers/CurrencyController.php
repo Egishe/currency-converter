@@ -19,6 +19,6 @@ class CurrencyController extends BaseController
 
     public function convert(CurrencyConvertRequest $request, CurrencyRateInterface $service): CurrencyConversionResource
     {
-        return new CurrencyConversionResource($service->convert($request->from, $request->to, $request->amount));
+        return new CurrencyConversionResource($service->convert($request->currency_from, $request->currency_to, $request->value));
     }
 }
