@@ -15,13 +15,8 @@ class CurrencyConversionResource extends BaseResource
             'currency_from' => $this->from,
             'currency_to' => $this->to,
             'value' => $this->amount,
-            'converted_value' => $this->formatAmount($this->convertedAmount, $this->accuracy),
-            'rate' => $this->formatAmount($this->rate, $this->accuracy),
+            'converted_value' => $this->convertedAmount, $this->accuracy,
+            'rate' => $this->rate, $this->accuracy,
         ];
-    }
-
-    private function formatAmount(float $amount, int $decimals): string
-    {
-        return number_format($amount, $decimals, '.', '');
     }
 }
