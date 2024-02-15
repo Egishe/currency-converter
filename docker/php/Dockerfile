@@ -1,4 +1,4 @@
-ARG IMAGE_PHP="php:8.2-fpm"
+ARG IMAGE_PHP="php:8.2-fpm-buster"
 FROM ${IMAGE_PHP}
 
 
@@ -9,4 +9,5 @@ RUN mkdir -p -m 0777 ${COMPOSER_CACHE_DIR}
 VOLUME ${COMPOSER_CACHE_DIR}
 ENV COMPOSER_CACHE_DIR=${COMPOSER_CACHE_DIR}
 
+RUN apt-get update && apt-get -y install git
 RUN docker-php-ext-install bcmath

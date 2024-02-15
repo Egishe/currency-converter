@@ -23,5 +23,6 @@ i.e.: http://127.0.0.1:8080/docs/
 
 ### API auth with fixed tokens
 
-For example: `Authorization: Bearer XCDQ5ERT3NFST2IF` where 'XCDQ5ERT3NFST2IF' is token
-which should match with environment variable `API_AUTH_TOKEN`.
+For example: `Authorization: Bearer your-token` where 'your-token' is token
+which should match with environment variable `API_AUTH_TOKEN`. 
+Default value is `7FTloGfDWuVTw04zVRZ2Hd9Se3FYDa9xRsOo59Kz34KzDPAPcTDGdHC1BaGpQjys`
